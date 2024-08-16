@@ -6,9 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -87,22 +91,37 @@ fun Counter() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = number.toString(),
-                style = MaterialTheme.typography.displayLarge
-            )
-            Button(
-                onClick = { number++ },
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .padding(top = 16.dp),
-                contentPadding = PaddingValues(16.dp)
+                    .fillMaxWidth()
+                    .padding(top = 0.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                Text(text = stringResource(R.string.count))
+                Button(
+                    onClick = { number-- },
+                    modifier = Modifier.size(56.dp).aspectRatio(1f),
+                    shape = CircleShape,
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    Text(text = stringResource(R.string.reduce))
+                }
+                Text(
+                    text = number.toString(),
+                    style = MaterialTheme.typography.displayLarge,
+                )
+                Button(
+                    onClick = { number++ },
+                    modifier = Modifier.size(56.dp).aspectRatio(1f),
+                    shape = CircleShape,
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    Text(text = stringResource (R.string.count))
+                }
             }
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
