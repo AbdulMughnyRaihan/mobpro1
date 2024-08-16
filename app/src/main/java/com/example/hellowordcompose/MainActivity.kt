@@ -3,9 +3,13 @@ package com.example.hellowordcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -14,10 +18,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.hellowordcompose.ui.theme.HellowordComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,12 +34,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HellowordComposeTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Counter()
                 }
             }
         }
@@ -56,13 +64,43 @@ fun MainScreen(content: @Composable (Modifier) -> Unit) {
         content(Modifier.padding(padding))
     }
 }
+
 @Composable
 fun Greeting(name: String) {
     MainScreen { modifier ->
         Text(
-            text = "Nim : 6706210114\nNama : Abdul Mughny Raihan",
+            text = "Nim : 6706210114 $name!",
             modifier = modifier
         )
+    }
+}
+
+@Composable
+fun Counter() {
+    var number by remember { mutableStateOf(0) }
+
+    MainScreen { modifier ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = number.toString(),
+                style = MaterialTheme.typography.displayLarge
+            )
+            Button(
+                onClick = { number++ },
+                modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .padding(top = 16.dp),
+                contentPadding = PaddingValues(16.dp)
+            ) {
+                Text(text = stringResource(R.string.count))
+            }
+        }
     }
 }
 
@@ -70,6 +108,6 @@ fun Greeting(name: String) {
 @Composable
 fun GreetingPreview() {
     HellowordComposeTheme {
-        Greeting("Android")
+        Counter()
     }
 }

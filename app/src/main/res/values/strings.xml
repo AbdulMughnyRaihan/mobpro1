@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">HellowordCompose</string>
+    <string name="app_name">Counter App</string>
+    <string name="count">Count +1</string>
 </resources>
